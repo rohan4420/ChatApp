@@ -8,7 +8,7 @@ const conversationModel = new mongoose.Schema({
     }],
     messages:[{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"message"
+        ref:"Message"
     }],
 },{timestamps:true})
 

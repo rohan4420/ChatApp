@@ -91,3 +91,22 @@ export const logout = async(req,res)=>{
         console.log(error)
     }
 }
+
+export const getOtherUser = async (req, res) => {
+    try {
+        const loggedInUserID = req.id;
+
+        // Find all users except the logged-in user and exclude the password field
+        const otherUsers = await User.find({ _id: { $ne: loggedInUserID } }).select("-password");
+
+        // Check if no users were found
+        if (!otherUsers.length) {
+            return res.status(404).json({ message: "No users found" });
+        }
+
+        return res.status(200).json(otherUsers);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+};
