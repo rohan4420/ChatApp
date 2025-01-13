@@ -5,6 +5,7 @@ import connectDB from "./config/database.js";
 import userRoute from "./routes/userRoute.js";
 import cookieParser from "cookie-parser";
 import messageRoute from "./routes/messageRoute.js"
+import cors from "cors"
 
 // Load environment variables
 dotenv.config();
@@ -12,6 +13,7 @@ dotenv.config();
 // Initialize Express app
 const app = express();
 
+app.use(cors())
 // Middleware for parsing JSON
 app.use(express.json());
 
