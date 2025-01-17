@@ -15,7 +15,7 @@ const Login = () => {
 
   // Axios POST function
   const submitSignupData = async () => {
-    console.log(user);
+    // console.log(user);
     setUser({
       username: "",
       password: "",

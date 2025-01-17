@@ -2,16 +2,26 @@ import React, { useState } from 'react';
 import OtherUsers from './OtherUsers';
 import { BiSearchAlt2 } from "react-icons/bi";
 import { IoLogOutOutline } from "react-icons/io5";
+import axios from 'axios';
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
   const searchSubmitHandler = (e) => {
     e.preventDefault();
     // Handle search logic here
   };
 
   const logoutHandler = async () => {
-    // Handle logout logic here
+    try {
+      const response = await axios.get("http://localhost:8080/api/v1/user/logout")
+      toast.success(response.data.message);
+      navigate('/login')
+    } catch (error) {
+        console.log(error)
+    }
   };
 
   return (
