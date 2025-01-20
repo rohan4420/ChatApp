@@ -1,13 +1,28 @@
 import { IoSend } from "react-icons/io5";
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { setMessages } from '../redux/messageSlice'
 
 const SendInput = () => {
+  const { selectedUser } = useSelector((store) => store.user);
+  const {messages } = useSelector((store) => store.message)
   const [message, setMessage] = useState("");
-  const onSubmitHandler = (e) => {
+  const dispatch = useDispatch();
+  const onSubmitHandler = async(e) => {
     e.preventDefault();
-    // Handle send message logic here
+    try {
+      // console.log("Sending message to:", selectedUser._id);
+      
+      const response = await axios.post(`http://localhost:8080/api/v1/message/send/${selectedUser._id}`, {message}, {withCredentials: true});
+      dispatch(setMessages([...messages, response.data.data]));
+      // console.log("Message sent:", response.data);
+    } catch (error) {
+      console.log(error);
+    }
     setMessage(""); // Clear message after sending
   };
+
 
   return (
     <form onSubmit={onSubmitHandler} className="px-4 py-3">

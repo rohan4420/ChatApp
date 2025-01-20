@@ -11,9 +11,9 @@ const Messages = () => {
 
   return (
     <div className="flex-1 overflow-y-auto px-6 py-4 bg-gray-50 space-y-4 rounded-t-lg">
-      {messages.map((message1) => {
-        console.log("Rendering message:", message1);
-        return <Message key={message1._id} message={message1} />;
+      {messages && messages.map((message) => {
+        // console.log("Rendering message:", message1);
+        return <Message key={message._id} message={message} />;
       })}
     </div>
   );
